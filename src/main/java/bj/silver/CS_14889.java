@@ -18,34 +18,41 @@ public class CS_14889 {
         graph = new int[N][N];
         for (int i = 0; i < N; i++) {
             graph[i] = Arrays.stream(br.readLine().split(" "))
-                    .mapToInt(Integer::parseInt).toArray();
+                             .mapToInt(Integer::parseInt).toArray();
         }
 
         int team = (N / 2);
-        Deque<Integer> pick = new ArrayDeque<>();
-        dfs(0, team, pick);
+        boolean[] visited = new boolean[N];
+        dfs(0, team, visited);
         System.out.println(minDiff);
     }
 
 
-    public static void dfs(int person, int team, Deque<Integer> pick) {
+    public static void dfs(int person, int team, boolean[] visited) {
         if (team == 0) {
-            int x = 0;
-            int[] vector = new int[graph.length];
-            for (int i = 0; i < pick.size(); i++) {
-                for (int j = i + 1; j < pick.size(); j++) {
-                    x += (graph[i][j] + graph[j][i]);
+            int START = 0;
+            int LINK = 0;
+            for (int i = 0; i < visited.length; i++) {
+                for (int j = i + 1; j < visited.length; j++) {
+                    if (visited[i] != visited[j]) {
+                        continue;
+                    }
+                    if (visited[i]) {
+                        START += graph[i][j] + graph[j][i];
+                    } else {
+                        LINK += graph[i][j] + graph[j][i];
+                    }
                 }
             }
-            minDiff = Math.min(minDiff, x);
+            minDiff = Math.min(minDiff, Math.abs(START - LINK));
             return;
         }
         if (person >= graph.length) {
             return;
         }
-        pick.add(person);
-        dfs(person + 1, team - 1, pick);
-        pick.pop();
-        dfs(person + 1, team, pick);
+        visited[person] = true;
+        dfs(person + 1, team - 1, visited);
+        visited[person] = false;
+        dfs(person + 1, team, visited);
     }
 }
