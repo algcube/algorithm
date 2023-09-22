@@ -1,11 +1,11 @@
-package ch04_implementation;
+package ch04_implementation.상하좌우;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class 상하좌우 {
+public class HO {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(bf.readLine());
