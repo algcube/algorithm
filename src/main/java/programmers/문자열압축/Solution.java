@@ -3,24 +3,40 @@ package programmers.문자열압축;
 class Solution {
     public int solution(String s) {
 
-        int unit = 2;
-        while (true) {
-            String x = s.substring(0, unit);
-            int start = unit;
-            int cnt = 0;
-            while (start + unit < s.length()) {
-                String y = s.substring(start, start + unit);
-                if (x.equals(y)) {
+        int minValue = s.length();
+
+        for (int unit = 1; unit < (s.length() / 2) + 1; unit++) {
+            int start = 0;
+            int cnt = 1;
+            String before = s.substring(start, start + unit);
+            String after = s.substring(start + unit, start + unit * 2);
+            StringBuilder sb = new StringBuilder();
+
+            while (true) {
+                if (before.equals(after)) {
                     cnt++;
+                } else {
+                    if (cnt != 1) {
+                        sb.append(cnt);
+                    }
+                    sb.append(before);
+                    cnt = 1;
                 }
+                before = after;
                 start += unit;
-                x = y;
+
+                if (start + unit * 2 > s.length()) {
+                    if (cnt != 1) {
+                        sb.append(cnt);
+                    }
+                    sb.append(s.substring(start));
+                    minValue = Math.min(minValue, sb.length());
+                    break;
+                }
+                after = s.substring(start + unit, start + unit * 2);
             }
-            // 길이 계산
-            int i = unit * cnt;
-
         }
-
+        return minValue;
 
     }
 }
