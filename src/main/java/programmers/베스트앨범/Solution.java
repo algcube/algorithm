@@ -61,8 +61,10 @@ class Solution {
 
         @Override
         public int compareTo(Pair o) {
+            // 점수 내림차순으로 비교
             int result = Long.compare(this.value, o.value) * -1;
             if (result == 0) {
+                // 점수 같은 경우 인덱스를 오름차순으로 비교
                 return Integer.compare(this.index, o.index);
             }
             return result;
