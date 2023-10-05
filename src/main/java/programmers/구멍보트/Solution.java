@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 class Solution {
     public static int solution(int[] people, int limit) {
-
         int answer = 0;
         int index = 0;
         int length = people.length;
@@ -12,13 +11,11 @@ class Solution {
 
         for (int i = 0; i < length; i++) {
             int sum = people[index] + people[people.length - (i +1)];
-            if (sum > limit) {
-                answer++;
-            } else {
-                answer++;
+            if (sum <= limit) {
                 index++;
                 length--;
             }
+            answer++;
         }
         return answer;
     }
