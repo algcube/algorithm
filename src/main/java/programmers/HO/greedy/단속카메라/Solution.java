@@ -9,7 +9,6 @@ class Solution {
         int lastCamera = Integer.MIN_VALUE;
 
         for (int[] route : routes) {
-            // 단속카메라에 등록한 지점이 routes내에 포함 한다면 continue
             if (lastCamera >= route[0] && lastCamera <= route[1]) {
                 continue;
             }
