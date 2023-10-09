@@ -19,7 +19,7 @@ class Solution {
             parent[i] = i;
         }
 
-        // union 성공하면 answer에 cost 추가
+        // union 성공하면(노드끼리 연결되면) answer에 cost 추가
         for (int[] cost : costs) {
             if (union(cost[0], cost[1])) {
                 answer += cost[2];
@@ -44,8 +44,9 @@ class Solution {
         }
 
         // 부모가 다를 경우 작은 값을 부모로 선정
-        if (x <= y) parent[y] = x;
-        else parent[x] = y;
+        int max = Math.max(x, y);
+        int min = Math.min(x, y);
+        parent[max] = min;
         return true;
     }
 }
