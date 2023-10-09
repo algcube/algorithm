@@ -1,9 +1,9 @@
 package programmers.HO.greedy.구멍보트;
 
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
-    public static int solution(int[] people, int limit) {
+    public int solution(int[] people, int limit) {
         int answer = 0;
         int index = 0;
         int length = people.length;
@@ -19,14 +19,4 @@ class Solution {
         }
         return answer;
     }
-
-    public static void main(String[] args) {
-        int solution1 = solution(new int[]{70, 50, 80, 50}, 100);
-        int solution2 = solution(new int[]{70, 80, 50}, 100);
-
-        System.out.println("solution1 = " + solution1);
-        System.out.println("solution2 = " + solution2);
-    }
 }
-
-
