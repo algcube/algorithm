@@ -6,15 +6,15 @@ class Solution {
     public int solution(int[][] routes) {
         int answer = 0;
         Arrays.sort(routes, (a, b) -> Integer.compare(a[1], b[1]));
-        int arrive = -9999999;
+        int lastCamera = Integer.MIN_VALUE;
 
         for (int[] route : routes) {
             // 단속카메라에 등록한 지점이 routes내에 포함 한다면 continue
-            if (arrive >= route[0] && arrive <= route[1]) {
+            if (lastCamera >= route[0] && lastCamera <= route[1]) {
                 continue;
             }
             answer++;
-            arrive = route[1];
+            lastCamera = route[1];
         }
 
         return answer;
