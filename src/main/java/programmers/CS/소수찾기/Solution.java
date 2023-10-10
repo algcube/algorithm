@@ -1,4 +1,4 @@
-package programmers.소수찾기;
+package programmers.CS.소수찾기;
 
 
 class Solution {

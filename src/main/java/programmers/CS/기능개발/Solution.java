@@ -1,4 +1,4 @@
-package programmers.기능개발;
+package programmers.CS.기능개발;
 
 import java.util.*;
 class Solution {

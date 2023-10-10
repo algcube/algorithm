@@ -1,4 +1,4 @@
-package programmers.전화번호목록;
+package programmers.CS.전화번호목록;
 
 import java.util.*;
 class Solution {
