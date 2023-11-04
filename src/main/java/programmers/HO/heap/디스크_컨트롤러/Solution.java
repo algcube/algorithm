@@ -5,8 +5,8 @@ import java.util.PriorityQueue;
 class Solution {
 
     private class Job {
-        private int start;
-        private int cost;
+        private final int start;
+        private final int cost;
 
         public Job(int start, int cost) {
             this.start = start;
