@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 class Solution {
 
-    private static class Job {
+    private class Job {
         private int start;
         private int cost;
 
@@ -20,18 +20,13 @@ class Solution {
         public int getCost() {
             return cost;
         }
-
-        public void setCost(int cost) {
-            this.cost = cost;
-        }
     }
 
-    public static int solution(int[][] jobs) {
-        int answer = 0;
-        int cost = 0;
+    public int solution(int[][] jobs) {
         int count = 0;
-        int waitTime = 0;
+        int waitTime = 0; // 다른 CPU를 기다리는 시간
         int costTime = 0;
+        int idle = 0; // CPU 가 어떠한 작업도 하지 않을 때 다음 CPU 사용을 기다리는 시간
 
         PriorityQueue<Job> wait = new PriorityQueue<>((o1, o2) -> o1.start - o2.start);
         PriorityQueue<Job> ready = new PriorityQueue<>((o1, o2) -> o1.cost - o2.cost);
@@ -48,34 +43,19 @@ class Solution {
 
             if (!ready.isEmpty()) {
                 Job job = ready.poll();
-                cost += job.getCost();
-                count++;
-
-                System.out.println("job.getStart() = " + job.getStart());
-                System.out.println("job.getCost() = " + job.getCost());
-            } else {
-                Job job = wait.poll();
-
+                waitTime += costTime - job.getStart();
                 costTime += job.getCost();
-                waitTime += cost - job.getStart();
-                job.setCost(job.getCost() + waitTime);
-                ready.add(job);
+                count++;
+            } else {
+                idle += wait.peek().getStart() - costTime;
+                costTime = wait.peek().getStart();
             }
         }
 
-        answer = getAnswer(cost, jobs.length);
-        return answer;
+        return getAnswer(waitTime, costTime, idle, jobs.length);
     }
 
-    private static int getAnswer(int cost, int jobSize) {
-        return cost / jobSize;
-    }
-
-    public static void main(String[] args) {
-        int[][] jobs = {
-            {0, 3}, {2, 6}, {1, 9}
-        };
-        int solution = solution(jobs);
-        System.out.println("solution = " + solution);
+    public int getAnswer(int waitTime, int costTime, int idle, int jobsLength) {
+        return (waitTime + costTime - idle) / jobsLength;
     }
 }
